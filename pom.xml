@@ -48,23 +48,25 @@
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
 
     <checkstyle.plugin.version>3.1.2</checkstyle.plugin.version>
-    <checkstyle.version>9.1</checkstyle.version>
+    <checkstyle.version>9.3</checkstyle.version>
 
-    <spotbugs.plugin.version>4.4.2.2</spotbugs.plugin.version>
-    <spotbugs.impl.version>4.4.2</spotbugs.impl.version>
+    <spotbugs.plugin.version>4.5.3.0</spotbugs.plugin.version>
+    <spotbugs.impl.version>4.6.0</spotbugs.impl.version>
+    <commons.pmd.version>3.16.0</commons.pmd.version>
+    <commons.pmd-impl.version>6.44.0</commons.pmd-impl.version>
 
-    <commons.mockito.version>4.0.0</commons.mockito.version>
+    <commons.mockito.version>4.4.0</commons.mockito.version>
     <commons.jacoco.version>0.8.7</commons.jacoco.version>
     <commons.javadoc.version>3.3.0</commons.javadoc.version>
 
-    <graalvm.version>21.3.0</graalvm.version>
+    <graalvm.version>22.0.0.2</graalvm.version>
     <commons.rng.version>1.4</commons.rng.version>
 
     <commons.japicmp.version>0.15.3</commons.japicmp.version>
     <japicmp.skip>false</japicmp.skip>
     <clirr.skip>true</clirr.skip>
 
-    <jmh.version>1.33</jmh.version>
+    <jmh.version>1.34</jmh.version>
     <commons.project-info.version>3.1.2</commons.project-info.version>
 
     <!-- Commons Release Plugin -->
@@ -86,13 +88,13 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>5.8.1</version>
+      <version>5.8.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.21.0</version>
+      <version>3.22.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -141,7 +143,7 @@
   </dependencies>
 
   <build>
-    <defaultGoal>clean package apache-rat:check japicmp:cmp checkstyle:check spotbugs:check javadoc:javadoc</defaultGoal>
+    <defaultGoal>clean verify apache-rat:check japicmp:cmp checkstyle:check spotbugs:check javadoc:javadoc</defaultGoal>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -169,6 +171,35 @@
               </excludes>
             </parameter>
           </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-pmd-plugin</artifactId>
+          <version>${commons.pmd.version}</version>
+          <configuration>
+            <targetJdk>${maven.compiler.target}</targetJdk>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-core</artifactId>
+              <version>${commons.pmd-impl.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-java</artifactId>
+              <version>${commons.pmd-impl.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-javascript</artifactId>
+              <version>${commons.pmd-impl.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-jsp</artifactId>
+              <version>${commons.pmd-impl.version}</version>
+            </dependency>
+          </dependencies>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -292,7 +323,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.15.0</version>
+        <version>3.16.0</version>
         <configuration>
           <targetJdk>${maven.compiler.target}</targetJdk>
         </configuration>
@@ -308,7 +339,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>taglist-maven-plugin</artifactId>
-        <version>2.4</version>
+        <version>3.0.0</version>
         <configuration>
           <tagListOptions>
             <tagClasses>
